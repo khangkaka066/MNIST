@@ -1,7 +1,7 @@
 import torch
 
 from model import CNNmodel
-from Dataset import train_loader, test_loader
+from dataset import train_loader, test_loader
 from train import train, test
 
 

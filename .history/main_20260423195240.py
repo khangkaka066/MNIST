@@ -1,7 +1,7 @@
 import torch
 
 from model import CNNmodel
-from Dataset import train_loader, test_loader
+from dataset import train_loader, test_loader
 from train import train, test
 
 
@@ -12,7 +12,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     criterion = torch.nn.CrossEntropyLoss()
 
-    epochs = 5
+    epochs = 355
 
     for epoch in range(epochs):
         loss = train(model, device, train_loader, optimizer, criterion)
