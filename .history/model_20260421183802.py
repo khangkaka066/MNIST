@@ -1,0 +1,3 @@
+import torch
+
+Class CNNmodel

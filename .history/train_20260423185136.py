@@ -1,0 +1,28 @@
+import torch
+from model import CNNmodel
+from dataset import train_loader, test_loader
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+model = CNNmodel().to(device)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+criterion = torch.nn.CrossEntropyLoss()
+
+# ===== TRAIN =====
+for epoch in range(3):
+    model.train()
+    total_loss = 0
+
+    for images, labels in train_loader:
+        images, labels = images.to(device), labels.to(device)
+
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        total_loss += loss.item()
+
+    print(f"Epoch {epoch+1}, Loss: {total_loss:.4f}")

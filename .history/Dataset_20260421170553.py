@@ -1,0 +1,4 @@
+# Import dataset MNIST
+from torchvision import datasets, transforms    
+from torch.utils.data import DataLoader
+def get_mnist(batch_size=128):
