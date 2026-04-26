@@ -49,6 +49,5 @@ class CNNmodel(torch.nn.Module):
         x = self.block2(x)
         x = self.block3(x)
         x = self.gap(x)
-        x = x.view(x.size(0), -1)
-        x = self.classifier(x)
+        x = x
         return x

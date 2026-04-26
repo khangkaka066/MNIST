@@ -44,11 +44,5 @@ class CNNmodel(torch.nn.Module):
                 nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
-        x = self.stem(x)
-        x = self.block1(x)
-        x = self.block2(x)
-        x = self.block3(x)
-        x = self.gap(x)
-        x = x.view(x.size(0), -1)
-        x = self.classifier(x)
+        
         return x

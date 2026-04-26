@@ -42,13 +42,17 @@ class CNNmodel(torch.nn.Module):
             elif isinstance(m, nn.BatchNorm2d):
                 nn.init.constant_(m.weight, 1)
                 nn.init.constant_(m.bias, 0)
-
+                
     def forward(self, x):
-        x = self.stem(x)
-        x = self.block1(x)
-        x = self.block2(x)
-        x = self.block3(x)
-        x = self.gap(x)
+        
+        x = self.pool(F.relu(self.bn1(self.conv1(x))))
+        x = self.pool(F.relu(self.bn2(self.conv2(x))))
+        x = self.pool(F.relu(self.bn3(self.conv3(x))))
+
         x = x.view(x.size(0), -1)
-        x = self.classifier(x)
+
+        x = F.relu(self.fc1(x))
+        x = F.dropout(x, p=0.3, training=self.training)
+
+        x = self.fc2(x)
         return x
