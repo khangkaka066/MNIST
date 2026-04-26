@@ -16,12 +16,12 @@ trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print(f"Tổng số tham số: {total_params:,}")
 print(f"Tham số có thể huấn luyện: {trainable_params:,}")
 
-# # In thông tin chi tiết từng layer (tên, kích thước, mean/std của trọng số conv đầu tiên)
-# print("\nDanh sách tham số:")
-# for name, param in model.named_parameters():
-#     print(f"{name:20} | shape: {str(list(param.shape)):15} | requires_grad: {param.requires_grad}")
-#     if name == "conv1.weight":
-#         print(f"   Mean: {param.mean().item():.4f}, Std: {param.std().item():.4f}")
+# In thông tin chi tiết từng layer (tên, kích thước, mean/std của trọng số conv đầu tiên)
+print("\nDanh sách tham số:")
+for name, param in model.named_parameters():
+    print(f"{name:20} | shape: {str(list(param.shape)):15} | requires_grad: {param.requires_grad}")
+    if name == "conv1.weight":
+        print(f"   Mean: {param.mean().item():.4f}, Std: {param.std().item():.4f}")
 
 
 def preprocess_image(image_path, invert=True, mean=0.1307, std=0.3081):

@@ -1,9 +1,8 @@
 torchvision
 torch
 dataset
-opencv-python 
+cv2 
 numpy
 pandas
 matplotlib
 seaborn
-sklearn

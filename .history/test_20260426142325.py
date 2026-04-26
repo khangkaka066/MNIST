@@ -16,12 +16,12 @@ trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print(f"Tổng số tham số: {total_params:,}")
 print(f"Tham số có thể huấn luyện: {trainable_params:,}")
 
-# # In thông tin chi tiết từng layer (tên, kích thước, mean/std của trọng số conv đầu tiên)
-# print("\nDanh sách tham số:")
-# for name, param in model.named_parameters():
-#     print(f"{name:20} | shape: {str(list(param.shape)):15} | requires_grad: {param.requires_grad}")
-#     if name == "conv1.weight":
-#         print(f"   Mean: {param.mean().item():.4f}, Std: {param.std().item():.4f}")
+# In thông tin chi tiết từng layer (tên, kích thước, mean/std của trọng số conv đầu tiên)
+print("\nDanh sách tham số:")
+for name, param in model.named_parameters():
+    print(f"{name:20} | shape: {str(list(param.shape)):15} | requires_grad: {param.requires_grad}")
+    if name == "conv1.weight":
+        print(f"   Mean: {param.mean().item():.4f}, Std: {param.std().item():.4f}")
 
 
 def preprocess_image(image_path, invert=True, mean=0.1307, std=0.3081):
@@ -71,8 +71,7 @@ def preprocess_image(image_path, invert=True, mean=0.1307, std=0.3081):
     return tensor.to(device)
 
 def predict_image(image_path):
-    mean = 0.1307
-    std = 0.3081
+    
     tensor = preprocess_image(image_path, invert=True)
     with torch.no_grad():
         output = model(tensor)
@@ -85,6 +84,8 @@ def predict_image(image_path):
     viz = tensor.squeeze().cpu().numpy()
     viz = (viz * std + mean) * 255  # đảo ngược chuẩn hóa để hiển thị
     viz = np.clip(viz, 0, 255).astype(np.uint8)
-    
+    cv2.imshow("Processed input (inverted)", viz)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 # Thử với ảnh bạn có
 predict_image("/Users/nguyenvokhang/Downloads/MNIST/mnist_6-300x295.png")
