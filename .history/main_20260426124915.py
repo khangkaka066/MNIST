@@ -12,7 +12,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     criterion = torch.nn.CrossEntropyLoss()
 
-    epochs = 50
+    epochs = 
 
     for epoch in range(epochs):
         loss = train(model, device, train_loader, optimizer, criterion)
